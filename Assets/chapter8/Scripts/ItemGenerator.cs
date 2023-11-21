@@ -10,9 +10,22 @@ public class ItemGenerator : MonoBehaviour
     float delta = 0;
     int ratio = 2;
     float speed = -0.03f;
+    bool[] isFull = new bool[9] { false, false, false, false, false, false, false, false, false };
+    Vector3[] Board = new Vector3[9]
+    {
+        new Vector3(-1,4,-1),
+        new Vector3(-1,4,0),
+        new Vector3(-1,4,1),
+        new Vector3(0,4,-1),
+        new Vector3(0,4,0),
+        new Vector3(0,4,1),
+        new Vector3(1,4,-1),
+        new Vector3(1,4,0),
+        new Vector3(1,4,1)
+    };
     private void Update()
     {
-        delta += Time.deltaTime;
+        delta += Time.fixedDeltaTime;
         if (delta > span)
         {
             delta = 0;
@@ -37,5 +50,9 @@ public class ItemGenerator : MonoBehaviour
         this.span = span;
         this.speed = speed;
         this.ratio = ratio;
+    }
+    public float RandomTime()
+    {
+        return Random.Range(-0.05f, -0.01f);
     }
 }

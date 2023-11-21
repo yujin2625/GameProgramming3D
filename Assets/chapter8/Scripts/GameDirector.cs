@@ -4,9 +4,11 @@ using UnityEngine;
 using TMPro;
 public class GameDirector : MonoBehaviour
 {
+    public GameObject itemGenerator;
+    bool isPlaying = false;
     TMP_Text timerText;
     TMP_Text pointText;
-    float time = 60.0f;
+    float time = 30.0f;
     int point = 0;
     public void GetApple()
     {
@@ -16,6 +18,11 @@ public class GameDirector : MonoBehaviour
     {
         point /= 2;
     }
+    public void OnStart()
+    {
+        itemGenerator.SetActive(true);
+        isPlaying = true;
+    }
     private void Start()
     {
         timerText = GameObject.Find("Time").GetComponent<TMP_Text>();
@@ -23,8 +30,11 @@ public class GameDirector : MonoBehaviour
     }
     private void Update()
     {
-        time -= Time.deltaTime;
-        timerText.text = time.ToString("F1");
-        pointText.text = point.ToString() + " point";
+        if (isPlaying)
+        {
+            time -= Time.fixedDeltaTime;
+            timerText.text = time.ToString("F1");
+            pointText.text = point.ToString() + " point";
+        }
     }
 }
